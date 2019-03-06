@@ -2,6 +2,8 @@
 import os
 import csv
 
+file_loc = str(input('Enter exact current file location to proceed: ') )
+
 queries = {}
 with open('../../code/qrel/qrel_test.txt') as csv_file:
 	reader = csv.reader(csv_file, delimiter=' ')
@@ -11,7 +13,7 @@ with open('../../code/qrel/qrel_test.txt') as csv_file:
 			queries[col[0]] = docid
 		
 		
-for file in os.listdir("C:/ToCopy/Study/IN4325-Information_Retrieval/Terrier/For_tests/terrier-project-5.1/var/results"):
+for file in os.listdir(file_loc):
 	if file.endswith(".res") and not file.endswith("_f.res"):
 		new_col = []
 		with open(file) as csv_file:
