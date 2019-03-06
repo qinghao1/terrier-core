@@ -1,4 +1,5 @@
 #this file should be in /var/results directory
+#output files will be with _f.res, so remember to rename the output file to .res file (overwrite original) before evaluating
 import os
 import csv
 
