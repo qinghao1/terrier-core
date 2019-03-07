@@ -16,7 +16,11 @@ $bin/terrier batchretrieval -D matching.retrieved_set_size=10000 -D trec.output.
 5). After running all the models required following step4; Run the filter_passage.py script to filter results to documents
 <open command prompt in var/results to run and follow instructions> $python ./filter_passage.py
 
-6). Batch evaluate the documents based on (relevance judgement) qrels file
+6).Overwrite the existing .res file with the _f.res (rename this _f.res file to overwrite)
+
+7). Batch evaluate the documents based on (relevance judgement) qrels file
 $bin/terrier batchevaluate -q <abosulute-path-to-qrels-file>
 
-7). Look at var/results directory to get the final results (.res, .eval)
+8). Look at var/results directory to get the final results (.res, .eval)
+
+Models from terrier we are testing: (WC)Tf, (WC.IDF)TF_IDF, BM25, (QLwithDirchletSmoothing)DirichletLM
