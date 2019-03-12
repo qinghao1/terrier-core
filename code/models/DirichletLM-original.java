@@ -59,7 +59,7 @@ public class DirichletLM extends WeightingModel {
 
 	@Override
 	public String getInfo() {
-		return "DirichletLM";
+		return "OriDirichletLM";
 	}
 
 }

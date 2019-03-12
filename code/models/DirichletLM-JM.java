@@ -48,7 +48,7 @@ public class DirichletLM extends WeightingModel {
 	 */
 	public DirichletLM() {
 		super();
-		c = 2500;
+		c = 0.5;
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class DirichletLM extends WeightingModel {
 
 	@Override
 	public String getInfo() {
-		return "DirichletLM";
+		return "JM-DirichletLM";
 	}
 
 }
