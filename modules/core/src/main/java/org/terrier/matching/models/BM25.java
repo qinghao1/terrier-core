@@ -1,10 +1,10 @@
 /*
- * Terrier - Terabyte Retriever 
- * Webpage: http://terrier.org 
+ * Terrier - Terabyte Retriever
+ * Webpage: http://terrier.org
  * Contact: terrier{a.}dcs.gla.ac.uk
  * University of Glasgow - School of Computing Science
  * http://www.gla.ac.uk/
- * 
+ *
  * The contents of this file are subject to the Mozilla Public License
  * Version 1.1 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
@@ -22,7 +22,7 @@
  *
  * Contributor(s):
  *   Gianni Amati <gba{a.}fub.it> (original author)
- *   Ben He <ben{a.}dcs.gla.ac.uk> 
+ *   Ben He <ben{a.}dcs.gla.ac.uk>
  *   Vassilis Plachouras <vassilis{a.}dcs.gla.ac.uk>
  */
 package org.terrier.matching.models;
@@ -41,17 +41,17 @@ public class BM25 extends WeightingModel {
 
 	/** The constant k_1.*/
 	private double k_1 = 1.2d;
-	
+
 	/** The constant k_3.*/
 	private double k_3 = 8d;
-	
+
 	/** The parameter b.*/
 	private double b;
-	
+
 	/** A default constructor.*/
 	public BM25() {
 		super();
-		b=0.75d;
+		b=0.35d; //original 0.35
 	}
 	/**
 	 * Returns the name of the model.
@@ -64,7 +64,7 @@ public class BM25 extends WeightingModel {
 	 * Uses BM25 to compute a weight for a term in a document.
 	 * @param tf The term frequency in the document
 	 * @param docLength the document's length
-	 * @return the score assigned to a document with the given 
+	 * @return the score assigned to a document with the given
 	 *         tf and docLength, and other preset parameters
 	 */
 	public double score(double tf, double docLength) {
@@ -90,5 +90,5 @@ public class BM25 extends WeightingModel {
 	public double getParameter() {
 	    return this.b;
 	}
-	
+
 }
