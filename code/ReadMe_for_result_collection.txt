@@ -23,4 +23,4 @@ $bin/terrier batchevaluate -q <abosulute-path-to-qrels-file>
 
 8). Look at var/results directory to get the final results (.res, .eval)
 
-Models from terrier we are testing: (WC)Tf, (WC.IDF)TF_IDF, BM25, (QLwithDirchletSmoothing)DirichletLM
+9).(Optional) run batchevaluate with "-p" and run comparequery.py to see how each query performed [sorted]
