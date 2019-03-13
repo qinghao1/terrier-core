@@ -6,12 +6,16 @@ public class Corpus {
     private Map<String, HashMap<String, Integer>> collectionFrequency;
     private Map<String, Integer> docNum;
     private Set<String> bagOfWords;
+    private Map<String, Double> avgLength;
+    private Map<String, Integer> docLength;
 
     public Corpus(){
         docList = new ArrayList<DocVector>();
         collectionFrequency = new HashMap<String, HashMap<String, Integer>> ();
         docNum = new HashMap<String, Integer>();
         bagOfWords = new HashSet<String>();
+        avgLength = new HashMap<String, Double>();
+        docLength = new HashMap<String, Integer>();
     }
 
     public void addDocVector(DocVector vec){
@@ -72,6 +76,22 @@ public class Corpus {
             return docNum.get(docPrefix);
         else
             return 0;
+    }
+
+    public void addAvgLength(String prefix, double avg){
+        avgLength.put(prefix, avg);
+    }
+
+    public double getAvgLength(String prefix){
+        return avgLength.get(prefix);
+    }
+
+    public void addDocLength(String docID, int size){
+        docLength.put(docID, size);
+    }
+
+    public int getDocLength(String docID){
+        return docLength.get(docID);
     }
 
 

@@ -13,6 +13,9 @@ public class Reader {
         readStopWords();
     }
 
+    /**
+     * read stop words from file
+     */
     private void readStopWords(){
         BufferedReader reader;
 
@@ -34,6 +37,9 @@ public class Reader {
 
     }
 
+    /**
+     * Read trec file
+     */
     public void readTrec(){
         BufferedReader reader;
         try{
@@ -42,6 +48,8 @@ public class Reader {
 
             String str = reader.readLine();
             Map<String, Integer> docNum = new HashMap<String, Integer>();
+            String prefixDef = "0";
+            int sum = 0, count = 0;
 
             while(str != null){
 
@@ -59,9 +67,24 @@ public class Reader {
                     reader.readLine();
                     String text = reader.readLine();
 //                    System.out.println(text);
-                    doc.calculateTermFrequencies(tokenization(text));
+                    Set<String> tokens = tokenization(text);
+                    doc.calculateTermFrequencies(tokens);
 
                     corpus.addDocVector(doc);
+                    corpus.addDocLength(doc.getDocId(), tokens.size());
+
+                    // calculate document avg length
+                    if(prefixDef != prefix){
+                        double avg = (sum + 0.0)/count;
+                        corpus.addAvgLength(prefixDef, avg);
+
+                        prefixDef = prefix;
+                        sum = tokens.size();
+                        count = 1;
+                    }else{
+                        sum += tokens.size();
+                        count ++;
+                    }
                 }
 
                 str = reader.readLine();
@@ -74,6 +97,11 @@ public class Reader {
         }
     }
 
+    /**
+     * Function to retrieve documents
+     * @param question to be queried
+     * @return a list of result sorted by score
+     */
     public ArrayList<Result> retrieval(Question question){
 
         Set<String> tokensInQn = question.getTokens();
@@ -105,10 +133,14 @@ public class Reader {
 
                 for(String term: corpus.getBagOfWords()){
                     if(tokensInDoc.containsKey(term))
-                        vecDoc.add(TFIDF.score(tokensInDoc.get(term), corpus.getDocNum(question.getQueriedDocID()),
+                        vecDoc.add(TFIDF.score(tokensInDoc.get(term), corpus.getDocLength(doc.getDocId()),
+                                corpus.getAvgLength(prefix),
+                                corpus.getDocNum(question.getQueriedDocID()),
                                 corpus.getCollectionFrequency(question.getQueriedDocID(), term)));
                     else
-                        vecDoc.add(TFIDF.score(0, corpus.getDocNum(question.getQueriedDocID()),
+                        vecDoc.add(TFIDF.score(0, corpus.getDocLength(doc.getDocId()),
+                                corpus.getAvgLength(prefix),
+                                corpus.getDocNum(question.getQueriedDocID()),
                                 corpus.getCollectionFrequency(question.getQueriedDocID(), term)));
                 }
 
@@ -122,6 +154,9 @@ public class Reader {
         return result;
     }
 
+    /**
+     * Read question file
+     */
     public void readQuestion(){
         BufferedReader reader;
 
@@ -158,7 +193,10 @@ public class Reader {
 
     }
 
-
+    /**
+     * Tokenize the word by removing punctuations and stop words.
+     * @return a set of tokens in the text
+     */
     private Set<String> tokenization(String text){
 
         // remove punctuations
@@ -180,6 +218,9 @@ public class Reader {
         return wordBag;
     }
 
+    /**
+     * Output the result to a file(.res)
+     */
     public void writeRanking(String qID, ArrayList<Result> result){
         try{
             BufferedWriter out = new BufferedWriter(new FileWriter("vectorSpace.res", true));
@@ -189,10 +230,6 @@ public class Reader {
                 out.write(qID + " Q0 " + re.getDocId() + " " + i + " " + re.getScore() + " VectorSpace\n");
                 i ++;
             }
-//            for(int i = 0; i < result.size(); i ++){
-//                Result re = result.get(i);
-//                out.write(qID + " Q0 " + re.getDocId() + " " + (i+1) + " " + re.getScore() + " VectorSpace\n");
-//            }
             out.close();
         }catch (IOException e){
             e.printStackTrace();
@@ -205,7 +242,6 @@ public class Reader {
         Reader test = new Reader();
         test.readTrec();
         test.readQuestion();
-
 
     }
 }

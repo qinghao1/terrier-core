@@ -37,4 +37,6 @@ public class DocVector {
 
         setTokens(map);
     }
+
+
 }

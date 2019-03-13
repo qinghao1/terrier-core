@@ -21,12 +21,6 @@ public class Result implements Comparable{
     public int compareTo(Object o) {
         Result re = (Result) o;
         return - Double.compare(score, re.getScore());
-//        if(score > re.getScore())
-//            return -1;
-//        else if(score < re.getScore())
-//            return 1;
-//        else
-//            return 0;
     }
 
     @Override
