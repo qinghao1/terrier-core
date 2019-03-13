@@ -1,4 +1,3 @@
-import javax.print.Doc;
 import java.io.*;
 import java.util.*;
 
@@ -125,7 +124,7 @@ public class Reader {
 
         for(DocVector doc: docList){
 
-            if(doc.getDocId().startsWith(prefix)){
+            if(doc.getDocId().startsWith(prefix + "-")){
 
                 // create vector for doc
                 Map<String, Integer> tokensInDoc = doc.getTokens();

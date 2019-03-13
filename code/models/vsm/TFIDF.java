@@ -23,7 +23,7 @@ public class TFIDF {
      * @return
      */
     public static double tfScore(int tf, int docLength, double avgLength){
-        double b = 0.5;
+        double b = 0.9;
         double g = 1;
 
         double tf_score = 1 + Math.log(1 + Math.log(tf / (1 - b + b * (docLength / avgLength) ) + g));
