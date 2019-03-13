@@ -77,9 +77,10 @@ public class TF_IDF extends WeightingModel {
 	 *		 tf and docLength, and other preset parameters
 	 */
 	public final double score(double tf, double docLength) {
-		double Robertson_tf = k_1*tf/(tf+k_1*(1-b+b*docLength/averageDocumentLength));
+		//double Robertson_tf = k_1*tf/(tf+k_1*(1-b+b*docLength/averageDocumentLength)); //remove normalisation
 		double idf = WeightingModelLibrary.log(numberOfDocuments/documentFrequency+1);
-		return keyFrequency * Robertson_tf * idf;
+		//return keyFrequency * Robertson_tf * idf;
+		return keyFrequency * tf * idf;
 	}
 
 	/**
